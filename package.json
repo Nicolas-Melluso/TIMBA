@@ -1,0 +1,67 @@
+{
+  "name": "timba",
+  "version": "0.2.0",
+  "private": true,
+  "description": "TIMBA! desktop prototype: bingo roguelike contra la Parca.",
+  "main": "out/main/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "tsc --noEmit && electron-vite build",
+    "preview": "electron-vite preview",
+    "dist": "npm run build && electron-builder --win --x64",
+    "dist:portable": "npm run build && electron-builder --win portable --x64",
+    "dist:installer": "npm run build && electron-builder --win nsis --x64",
+    "test:rules": "node scripts/run-rule-tests.mjs",
+    "validate": "node scripts/validate-structure.mjs && node scripts/run-rule-tests.mjs"
+  },
+  "dependencies": {
+    "phaser": "^3.88.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "electron": "^35.0.0",
+    "electron-builder": "^26.8.1",
+    "electron-vite": "^3.0.0",
+    "typescript": "^5.8.2"
+  },
+  "build": {
+    "appId": "com.timba.game",
+    "productName": "TIMBA!",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "out/**/*",
+      "package.json"
+    ],
+    "win": {
+      "signAndEditExecutable": false,
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "artifactName": "TIMBA-Setup-${version}-${arch}.${ext}"
+    },
+    "portable": {
+      "artifactName": "TIMBA-Portable-${version}-${arch}.${ext}"
+    }
+  }
+}

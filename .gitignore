@@ -1,0 +1,9 @@
+node_modules/
+out/
+dist/
+dist-electron/
+.vite/
+.rule-tests/
+*.log
+.DS_Store
+Thumbs.db
